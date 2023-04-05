@@ -4,7 +4,10 @@ export default () => {
   const { helloName, onHelloNameChange } = useHelloName();
   return (
     <div>
-      请输入名字：<Input value={helloName} onChange={onHelloNameChange}></Input>
+      <label>
+        请输入名字：
+        <Input value={helloName} onChange={onHelloNameChange}></Input>
+      </label>
     </div>
   );
 };

@@ -8,5 +8,5 @@ interface HelloResponse {
 
 export const fetchHelloData = async (name: string): Promise<HelloResponse> => {
   const fetchRequest = new FetchRequest();
-  return await fetchRequest.get(`/hello/${name}`);
+  return await fetchRequest.get(`/hello/${name || 'empty'}`);
 };

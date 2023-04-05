@@ -5,8 +5,7 @@ import { helloNameAtom } from '../store/hello';
 const helloMsgQuery = selectorFamily({
   key: 'helloMsgQuery',
   get: (name: string) => async () => {
-    const result = await fetchHelloData(name || 'empty');
-    return result;
+    return await fetchHelloData(name);
   },
 });
 

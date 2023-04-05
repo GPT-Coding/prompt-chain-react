@@ -1,4 +1,4 @@
-import { ChangeEvent, startTransition } from 'react';
+import { ChangeEvent } from 'react';
 import { helloNameAtom } from '../store/hello';
 import { useRecoilState } from 'recoil';
 

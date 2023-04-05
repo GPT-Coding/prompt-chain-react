@@ -1,7 +1,4 @@
-// mockServer.d.ts
+import { setupWorker } from 'msw';
+import { handlers } from './handlers';
 
-import { SetupWorker } from 'msw';
-
-declare module './browser' {
-  export const worker: SetupWorker;
-}
+export const worker = setupWorker(...handlers);
