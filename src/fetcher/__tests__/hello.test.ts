@@ -1,6 +1,4 @@
 import { fetchHelloData } from '../hello';
-import { rest } from 'msw';
-import { server } from '../../../mocks/node';
 
 describe('fetchHelloData', () => {
   const mockTimestamp = Date.now();
