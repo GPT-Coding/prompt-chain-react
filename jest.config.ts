@@ -40,4 +40,18 @@ export default {
     },
   },
   setupFilesAfterEnv: ['<rootDir>/tests/setupTests.ts'],
+  transform: {
+    '^.+\\.(ts|tsx)$': [
+      '@swc/jest',
+      {
+        jsc: {
+          transform: {
+            react: {
+              runtime: 'automatic',
+            },
+          },
+        },
+      },
+    ],
+  },
 };
