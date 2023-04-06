@@ -1,5 +1,4 @@
-import { render } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { render } from '../../../tests/test-utils';
 import HelloWrapper from '../Hello';
 import { useHello } from '../../hooks/useHello';
 
