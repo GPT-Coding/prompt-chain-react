@@ -1,0 +1,13 @@
+- ### The project  is inherit from MVVM architecture and has 4 layers:
+	- View
+		- **ViewComponent**: This component is use for render and response for user interaction. It is implemented  by RFC(React functional component) and depends on ViewModel to get the model data or method for this job. Its test and implementation strategy can find in **Process1**.
+	- ViewModel
+		- **Hook**: This component is use to provide React state、React props data for ViewComponent to render and provide callback method to change state or props data when get user interaction event. It depends on Fetcher if should get some data from server and it depends on Store when need to share some global state explicitly. Its test and implementation strategy can find in **Process2**.
+		- **Store**: This component is use to provide global state in whole application when component Hook need explicitly. Its test and implementation strategy can find in **Process2**.
+	- Service
+		- **Fetcher**: This component is use to provide data from server API by HTTP request. It de pends on FetchRequest to send real API request. its test and implementation strategy can find in **Process3**
+	- Infra
+		- **FetchRequest**: This component is encapsulate `fetch` from WEB API. Its instance provide methods `get` and `post` to send GET or POST HTTP request, and provide method `abort` to abort a request. This component is consider a part of scaffold,  so consider it is implemented already for new feature.
+- ### Codes guideline:
+	- The components in layer `View` called `View Logic`, and it should only has codes for view without data logic.
+	- The components in other layers is called `Non-View Logic` the codes init should without view logic likes render user-event...

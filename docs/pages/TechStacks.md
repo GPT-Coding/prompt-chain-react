@@ -1,0 +1,7 @@
+- **Language**: TypeScript
+- **Framework**: React、Recoil、Antd
+- **TestSuits**: Jest、Testing-library、@swr/jest
+- **Build**: Vite
+- **Lint**: Eslint
+- **GitHooks**: husky
+- **MockServer**: msw
