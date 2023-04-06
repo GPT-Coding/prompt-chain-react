@@ -15,9 +15,12 @@ const merchandiseListQuery = selector({
   key: 'merchandiseListQuery',
   get: async () => {
     const data = await fetchMerchandiseList();
-    return data.map((item) => ({
-      ...item,
-      title: item.name,
+    return data.map(({ name, description, price, stock, img }) => ({
+      title: name,
+      description,
+      price,
+      stock,
+      img,
     }));
   },
 });

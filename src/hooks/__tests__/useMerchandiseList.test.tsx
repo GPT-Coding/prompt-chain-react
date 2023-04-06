@@ -38,7 +38,7 @@ describe('useMerchandiseList hook', () => {
     mockedFetchMerchandiseList.mockResolvedValue(mockData);
 
     const { result } = renderHook(() => useMerchandiseList());
-    waitFor(() => {
+    await waitFor(() => {
       expect(result.current).toEqual([
         {
           title: '可口可乐',
