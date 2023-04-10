@@ -118,8 +118,9 @@ I prefer test first for each components, please tell me test strategy in each st
 > - `// src/components/Hello.tsx import { Suspense } from 'react'; import { useHello } from '../hooks/useHello'; const Hello = () => { const helloMsg = useHello(); return {helloMsg}; }; export default () => { return ( 加载中……}> ); };`
 > - `// src/components/__tests__/Hello.test.tsx import { render } from '../../../tests/test-utils'; import HelloWrapper from '../Hello'; import { useHello } from '../../hooks/useHello'; // Mock the useHello hook jest.mock('../../hooks/useHello'); const mockedUseHello = useHello as jest.Mock; describe('HelloWrapper component', () => { it('renders fallback content and displays the content from Hello component', async () => { const mockHelloMsg = 'Hello, World!'; mockedUseHello.mockImplementation(() => { return mockHelloMsg; }); const { getByText } = render(); expect(getByText(mockHelloMsg)).toBeInTheDocument(); }); });`
 
-1. If you understand this step, please implement test case code first , and should be accord **Process1 Test strategy**.
-2. please implement code for this test case previous, and should be accord by **Process1 Implementation strategy**.
+If you understand of this step, please tell me implement strategy of it.
+
+Please complete test codes and codes 
 
 ## Process2 Prompt
 **Implement Step2 refer Process2 ,here is description:**
@@ -164,8 +165,9 @@ I prefer test first for each components, please tell me test strategy in each st
 >     - `// src/store/hello.ts import { atom } from 'recoil'; export const helloNameAtom = atom({ key: 'helloName', default: 'yuqi', });`
 >     - `// src/hooks/__tests__/useHello.test.tsx import { renderHook, waitFor } from '../../../tests/test-utils'; import { useHello } from '../useHello'; import { fetchHelloData } from '../../fetcher/hello'; // Mock fetchHelloData jest.mock('../../fetcher/hello'); const mockedFetchHelloData = fetchHelloData as jest.Mock; // Mock timer beforeEach(() => { jest.useFakeTimers(); }); afterEach(() => { jest.useRealTimers(); }); describe('useHello hook', () => { it('returns the correct message with mocked timer and helloNameAtom', async () => { const mockTimestamp = 1677649423000; jest.setSystemTime(mockTimestamp); const mockName = 'John'; const mockMsg = 'Hello, John!'; // Mock the fetchHelloData response mockedFetchHelloData.mockResolvedValue({ msg: mockMsg, timestamp: mockTimestamp, name: mockName, }); const { result, rerender } = renderHook(() => { return useHello(); }); rerender(); await waitFor(() => expect(result.current).toEqual( `Now is ${new Date( mockTimestamp ).toISOString()}, ${mockMsg}, ${mockName}` ) ); }); });`
 
-1. If you understand this step, please implement test case code first and should be accord **Process2 Test strategy**.
-2. please implement code for this test case previous, and should be accord **Process2 Implementation strategy**.
+If you understand of this step, please tell me implement strategy of it.
+
+Please complete test codes and codes 
 
 ## Process3 Prompt
 **Implement Step3 refer Process3:**
@@ -209,5 +211,6 @@ I prefer test first for each components, please tell me test strategy in each st
 > - `// src/fetcher/hello.ts import FetchRequest from '../infra/fetchRequest'; interface HelloResponse { msg: string; timestamp: number; name: string; } export const fetchHelloData = async (name: string): Promise => { const fetchRequest = new FetchRequest(); return await fetchRequest.get(`/hello/${name || 'empty'}`); };`
 > - `// src/fetcher/__tests__/hello.test.ts import { fetchHelloData } from '../hello'; describe('fetchHelloData', () => { const mockTimestamp = Date.now(); beforeEach(() => { jest.useFakeTimers(); jest.setSystemTime(mockTimestamp); }); afterEach(() => { jest.useRealTimers(); }); it('should return the correct HelloResponse object', async () => { const name = 'John'; const response = await fetchHelloData(name); expect(response).toHaveProperty('msg', 'Hello!'); expect(response).toHaveProperty('timestamp', mockTimestamp); expect(response).toHaveProperty('name', name); }); it('should return the HelloResponse object with name as empty if not provided', async () => { const response = await fetchHelloData(''); expect(response).toHaveProperty('msg', 'Hello!'); expect(response).toHaveProperty('timestamp', mockTimestamp); expect(response).toHaveProperty('name', 'empty'); }); });`
 
-1. If you understand this step, please implement test case code first **,** and should be accord **Process3 Test strategy**.
-2. Please implement code for this test case previous, and should be accord Process3 implementation strategy.
+If you understand of this step, please tell me implement strategy of it.
+
+Please complete test codes and codes 
