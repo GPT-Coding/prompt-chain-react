@@ -17,7 +17,6 @@
 			- Given 用户进入商品列表页面
 			- When 没有商品
 			- Then 我可以看到提示：‘没有更多商品’
-			-
 - ### Story Processes
 	- **Process1 [[Process1(View)]]**  Implement a ViewComponent called `MerchandiseList.tsx`, to render merchandise list in page.
       - **AC1:** Stub ViewModel Hook return 3 items `[{title: '可口可乐', description:'最好喝的可乐',price:10, stock: 3, img:'https://s3-prd-hkp-ecommerce-01.s3.ap-southeast-1.amazonaws.com/ecom-prod/uploads/20210830113949/A1156_Coke_Pet_500_24P-100x100.jpg'},{title: '七喜', description:'最好喝的可乐',price:15, stock: 3, img:'https://s3-prd-hkp-ecommerce-01.s3.ap-southeast-1.amazonaws.com/ecom-prod/uploads/20210830113949/A1156_Coke_Pet_500_24P-100x100.jpg'},{title: '芬达', description:'最好喝的可乐',price:20, stock: 3, img:'https://s3-prd-hkp-ecommerce-01.s3.ap-southeast-1.amazonaws.com/ecom-prod/uploads/20210830113949/A1156_Coke_Pet_500_24P-100x100.jpg'}]`, then render a list has 3 items. Each item should render a `title`, `description`, label 价格with price, label 库存 with `stock`, and render Image with src is `img`
