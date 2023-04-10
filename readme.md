@@ -80,7 +80,7 @@ I prefer test first for each components, please tell me test strategy in each st
 
 
 ## Process1 Prompt
-**Implement Step1 refer Process1:**
+**Implement Step1 refer Process1 using TDD ,here is description:**
 
 > Implement a ViewComponent called `MerchandiseList.tsx`, to render merchandise list in page.
 > 
@@ -122,7 +122,7 @@ If you understand of this step, please tell me implement strategy of it.
 Please complete test codes and codes 
 
 ## Process2 Prompt
-**Implement Step2 refer Process2 ,here is description:**
+**Implement Step2 refer Process2 using TDD ,here is description:**
 
 > Implement a Hook called useMerchandiseList.tsx, to fetch data from Fetcher, then return state to ViewComponent
 > 
@@ -169,7 +169,7 @@ If you understand of this step, please tell me implement strategy of it.
 Please complete test codes and codes 
 
 ## Process3 Prompt
-**Implement Step3 refer Process3:**
+**Implement Step3 refer Process3 using TDD, here is description:**
 
 > Implement a Fetcher called `merchandise.ts` , to fetch data from API server.
 > 
