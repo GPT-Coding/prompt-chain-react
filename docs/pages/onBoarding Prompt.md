@@ -1,0 +1,5 @@
+- I try to tell you a web application project architecture. The all info is below the title #OverView. All implement codes must follow #TechStacks、#Architecture and #CommonStrategy. If you understand ,please answer the question below #Response
+- ### OverVIew
+	- {{embed [[Overview]]}}
+- ### Response
+	- If I want to implement a story to show the merchandises list in the web page. the data is get from server API please tell me implement strategy for this story. I prefer test first for each components, please tell me test strategy in each step, and please tell me which 'Process' I can find for implementation detail in each step.

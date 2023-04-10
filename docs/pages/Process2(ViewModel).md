@@ -1,7 +1,8 @@
 - ### Implementation Strategy
 	- **Hook** should be implemented a React hook. And management state or other effect.
 		- When state is local, can use hook `useState` for set state.
-		- When state is from async data, default use Recoil `selector`, and get async data in `get`
+		- When state is from async data, default use Recoil `selector`, and get async data in `get`.
+		- Don't fetch async data in `useEffect`.
 		- When state is from async data, and need some params, default use Recoil `selectorFamily`, and pass the param to the get callback.
 		- When state is declared globally, import this global state from Store.
 		- If find some data have relationship, prefer use Recoil data flow  to instead of separated `useState`.

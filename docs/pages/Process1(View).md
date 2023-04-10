@@ -3,6 +3,7 @@
 	- **ViewComponent** depends ViewModel is React props or state from Hook. It should not import store directly, store should import by Hook only.
 	- If hooks is depended by  React Component, and there is async state in hooks,  the React.Suspense should be wrap the real component, and pass the props into real component.
 	- If has props, props interface should be defined.
+	- If there is async state in hooks,  a Suspense should be wrap for the component.   `<Suspense fallback={<h2>加载中……</h2>}></Suspense>`
 ### Test Strategy
 	- Stub props and hooks, to test render with DOM by using testing-library.
 	- If there is function in props and hooks, and bind on event, spy on it to test it calls.
