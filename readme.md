@@ -117,7 +117,7 @@ The project is inherit from MVVM architecture and has 4 layers:
 
 If you understand of this step, please tell me implement strategy and test case of it.
 
-Please complete test codes and codes 
+Please complete test codes and codes with AC.
 
 ## Process2 Prompt
 **Implement Step2 refer Process2 using TDD ,here is description:**
@@ -164,7 +164,7 @@ Please complete test codes and codes
 
 If you understand of this step, please tell me implement strategy and test case of it.
 
-Please complete codes. 
+Please complete test codes and codes with AC.
 
 ## Process3 Prompt
 **Implement Step3 refer Process3 using TDD, here is description:**
@@ -210,4 +210,4 @@ Please complete codes.
 
 If you understand of this step, please tell me implement strategy and test case of it.
 
-Please complete test codes and codes 
+Please complete test codes and codes with AC.
