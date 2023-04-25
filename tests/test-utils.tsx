@@ -7,12 +7,15 @@ import {
   queries,
 } from '@testing-library/react';
 import React, { ReactElement, Suspense } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
   return (
     <RecoilRoot>
-      <Suspense fallback={<h2>加载中……</h2>}>{children}</Suspense>
+      <Suspense fallback={<h2>加载中……</h2>}>
+        <BrowserRouter>{children}</BrowserRouter>
+      </Suspense>
     </RecoilRoot>
   );
 };

@@ -3,6 +3,7 @@
 import { Suspense } from 'react';
 import { useMerchandiseList } from '../hooks/useMerchandiseList';
 import { List, Typography, Card } from 'antd';
+import { Link } from 'react-router-dom';
 
 const MerchandiseList = () => {
   const items = useMerchandiseList();
@@ -16,14 +17,16 @@ const MerchandiseList = () => {
       dataSource={items}
       renderItem={(item) => (
         <List.Item>
-          <Card
-            title={item.title}
-            cover={<img alt={item.title} src={item.img} />}
-          >
-            <Card.Meta description={item.description} />
-            <p>价格: {item.price}</p>
-            <p>库存: {item.stock}</p>
-          </Card>
+          <Link to={`/products/${item.id}`}>
+            <Card
+              title={item.title}
+              cover={<img alt={item.title} src={item.img} />}
+            >
+              <Card.Meta description={item.description} />
+              <p>价格: {item.price}</p>
+              <p>库存: {item.stock}</p>
+            </Card>
+          </Link>
         </List.Item>
       )}
     />
