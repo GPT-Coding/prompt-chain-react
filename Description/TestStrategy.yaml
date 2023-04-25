@@ -1,0 +1,7 @@
+Process:
+  - Process 1: If ViewComponent relies on ViewModel for rendering, stub the data in the ViewModel layer and test the rendered content.
+  - Process 2: If ViewComponent calls a method of a component in the ViewModel layer in response to user events, spyOn that method and test the behavior of the call.
+  - Process 3: If the Hook component needs to return data, stub the data in the Service layer that it depends on, and test the required data with the Store component (if any).
+  - Process 4: If the Hook component needs to return a method, spy on the method in the Service layer that it depends on, test the behavior of the call, and verify the impact of the returned state in the Service on the returned data.
+  - Process 5: Based on the API description, use the msw mock server to test the response of the Fetcher component calling the API.
+  - Process 6: Integrate the ViewComponent component, supplement the style, and perform manual testing.

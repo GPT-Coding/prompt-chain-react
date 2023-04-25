@@ -1,0 +1,47 @@
+Describe: |
+  Develop the OrderConfirmationPopup Component,
+  Create a new component named OrderConfirmationPopup that will display the order confirmation popup.
+  The component should have the following props:
+  product: an object that contains the details of the product that the user selected
+  onSubmit: a callback function that will be called when the user submits the form
+  onCancel: a callback function that will be called when the user cancels the form
+  The component should render the product details and a form with the following fields:
+  shipping address: a text input field for the user to enter their shipping address
+  product quantity: a number input field for the user to enter the quantity of the product they want to order
+  The form should also include a Submit button and a Cancel button.
+  The component should use the useForm hook from the ViewModel layer to manage the form state and validate the form inputs.
+
+Details:
+  Tech Stacks:
+    - Language: TypeScript
+    - Framework: React、Recoil、Antd
+    - TestSuits: Jest、Testing-library、@swr/jest
+    - Build: Vite
+    - Lint: Eslint
+    - GitHooks: husky
+    - MockServer: msw
+
+  Implementation Strategy:
+    - ViewComponent should be implemented by RFC (React functional component), base render element prefer use [Antd](https://ant.design/components/overview) components.
+    - ViewComponent depends ViewModel is React props or state from Hook. It should not import store directly, store should be imported by Hook only.
+    - If hooks is depended by React Component, and there is async state in hooks, the React.Suspense should be wrap the real component, and pass the props into real component.
+    - If has props, props interface should be defined.
+    - If there is async state in hooks, a Suspense should be wrap for the component. `<Suspense fallback={<h2>加载中……</h2>}></Suspense>`
+
+  Test Strategy:
+    - Stub props and hooks, to test render with DOM by using testing-library.
+    - If there is function in props and hooks, and bind on event, spy on it to test it calls.
+    - The module `testing-library/react'` is export by `tests/test-utils`, import it instead.
+
+  Implementation Steps:
+    1. Stub data in ViewModel with AC describe, spy on function in ViewModel, the write test case code for each AC example for component render and user event.
+    2. Write implement code to pass the test case.
+    3. If there is async state in hooks, wrap component by `<Suspense fallback={<h2>加载中……</h2>}></Suspense>`
+
+  Sample Code:
+    implementCode: |
+      // src/components/Hello.tsx import { Suspense } from 'react'; import { useHello } from '../hooks/useHello'; const Hello = () => { const helloMsg = useHello(); return {helloMsg}; }; export default () => { return ( 加载中……}> ); };
+    testCode: |
+      // src/components/__tests__/Hello.test.tsx import { render } from '../../../tests/test-utils'; import HelloWrapper from '../Hello'; import { useHello } from '../../hooks/useHello'; // Mock the useHello hook jest.mock('../../hooks/useHello'); const mockedUseHello = useHello as jest.Mock; describe('HelloWrapper component', () => { it('renders fallback content and displays the content from Hello component', async () => { const mockHelloMsg = 'Hello, World!'; mockedUseHello.mockImplementation(() => { return mockHelloMsg; }); const { getByText } = render(); expect(getByText(mockHelloMsg)).toBeInTheDocument(); }); });`
+
+Instruction: Please write test code for Describe and following Details

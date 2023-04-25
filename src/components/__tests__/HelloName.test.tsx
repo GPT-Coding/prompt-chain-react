@@ -1,3 +1,5 @@
+//src/components/__tests__/HelloName.test.tsx
+
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import HelloName from '../HelloName';

@@ -1,3 +1,5 @@
+//src/hooks/__tests__/useHello.test.tsx
+
 import { renderHook, waitFor } from '../../../tests/test-utils';
 import { useHello } from '../useHello';
 import { fetchHelloData } from '../../fetcher/hello';

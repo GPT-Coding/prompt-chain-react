@@ -1,3 +1,5 @@
+//src/fetcher/hello.ts
+
 import FetchRequest from '../infra/fetchRequest';
 
 interface HelloResponse {

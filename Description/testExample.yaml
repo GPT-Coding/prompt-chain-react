@@ -1,0 +1,87 @@
+Act: You are a senior front-end developer
+
+Process:
+  - Process 1: If ViewComponent relies on ViewModel for rendering, stub the data in the ViewModel layer and test the rendered content.
+  - Process 2: If ViewComponent calls a method of a component in the ViewModel layer in response to user events, spyOn that method and test the behavior of the call.
+  - Process 3: If the Hook component needs to return data, stub the data in the Service layer that it depends on, and test the required data with the Store component (if any).
+  - Process 4: If the Hook component needs to return a method, spy on the method in the Service layer that it depends on, test the behavior of the call, and verify the impact of the returned state in the Service on the returned data.
+  - Process 5: Based on the API description, use the msw mock server to test the response of the Fetcher component calling the API.
+  - Process 6: Integrate the ViewComponent component, supplement the style, and perform manual testing.
+
+Strategy:
+  - Create a new ViewComponent called "OrderConfirmationModal" that will display the product details, shipping address input field, and quantity input field. Follow the provided design mockups for the layout and styling.
+  - In the ViewModel layer, create a new Hook called "useOrderConfirmation" that will handle the state and logic related to the order confirmation modal, such as opening and closing the modal, handling form input changes, and form submissions.
+  - In the "useOrderConfirmation" Hook, create state variables for the shipping address and quantity input fields. Implement input validation according to AC3 and AC4.
+  - In the "useOrderConfirmation" Hook, create a function to handle form submission. This function should validate the form inputs according to AC3 and AC4, and if validation passes, it should call the "submitOrder" function from the Service layer.
+  - Create a new Service component called "OrderService" that will handle interactions with the API for submitting orders.
+  - In the "OrderService" component, create a function called "submitOrder" that takes the merchandieseId, quantity, and shipAddress as parameters, and sends a POST request to the "/portal/api/orders" API endpoint with the request body as specified in the userStory. Handle the response according to AC2 and AC6.
+  - Update the product listing page to open the "OrderConfirmationModal" when a product is clicked, passing the relevant product details as props.
+
+UserStory:
+  Description: 作为一个用户，我可以选择一个商品进行下单，以便于我购买商品
+  ACs:
+    - AC1:
+        - Given 用户进入商品列表页面（已经实现）
+        - When 点击某个商品
+        - Then 可以弹出一个订单确认的弹框，其中包含了这个商品的详情，以及一个可以填写的表单，包括了寄送地址、商品数量两个字段
+    - AC2:
+        - Given 用户打开订单确认的弹窗
+        - When 填写了合法的寄送地址、商品数量，点击提交。
+        - Then 提交订单，弹出 toast 提示用户订单提交成功，然后关闭弹窗
+    - AC3:
+        - Given 用户打开订单确认的弹窗
+        - When 没有填写即送地址或商品树龄，点击了提交
+        - Then 表单校验不通过，在没有填写的地方报错“请填写该字段”
+    - AC4:
+        - Given 用户打开订单确认的弹窗
+        - When 填写商品数量字段
+        - Then 只能填写大于等于的整数。
+    - AC5:
+        - Given 用户打开订单确认的弹窗
+        - When 用户点击取消
+        - Then 关闭弹窗，不做其他操作。
+    - AC6:
+        - Given 用户确认下单
+        - When 服务器出错
+        - Then 弹出 toast 提示用户提交失败，然后关闭弹窗
+
+  依赖 API:
+    URL: POST /portal/api/orders
+    request body: |
+      {
+        merchandieseId: string,
+        quantity: number,
+        shipAddress: string
+      }
+    response: |
+      {
+        status: number,
+        data: {
+          orderId: string
+        }
+        errormsg: string
+      }
+
+Example:
+  - MerchandiseList.tsx:
+    Describe: to render merchandise list in page
+    Tests:
+      - Process 1: "Stub ViewModel Hook return 3 items `[{title: '可口可乐', description:'最好喝的可乐',price:10, stock: 3, img:'https://s3-prd-hkp-ecommerce-01.s3.ap-southeast-1.amazonaws.com/ecom-prod/uploads/20210830113949/A1156_Coke_Pet_500_24P-100x100.jpg'},{title: '七喜', description:'最好喝的可乐',price:15, stock: 3, img:'https://s3-prd-hkp-ecommerce-01.s3.ap-southeast-1.amazonaws.com/ecom-prod/uploads/20210830113949/A1156_Coke_Pet_500_24P-100x100.jpg'},{title: '芬达', description:'最好喝的可乐',price:20, stock: 3, img:'https://s3-prd-hkp-ecommerce-01.s3.ap-southeast-1.amazonaws.com/ecom-prod/uploads/20210830113949/A1156_Coke_Pet_500_24P-100x100.jpg'}]`, then render a list has 3 items. Each item should render a `title`, `description`, label 价格with price, label 库存 with `stock`, and render Image with src is `img`"
+      - Process 1: "Stub ViewModel Hook return 0 items `[]`, then should render a empty placeholder in list: '没有更多商品'"
+  - useMerchandiseList.tsx:
+    Describe: to fetch data from Fetcher, then return state to ViewComponent
+    Tests:
+      - Process3: "Stub Fetcher return async data:`[{name: '可口可乐', description:'最好喝的可乐',price:10, stock: 3, img:'https://s3-prd-hkp-ecommerce-01.s3.ap-southeast-1.amazonaws.com/ecom-prod/uploads/20210830113949/A1156_Coke_Pet_500_24P-100x100.jpg'},{name: '七喜', description:'最好喝的可乐',price:15, stock: 3, img:'https://s3-prd-hkp-ecommerce-01.s3.ap-southeast-1.amazonaws.com/ecom-prod/uploads/20210830113949/A1156_Coke_Pet_500_24P-100x100.jpg'},{name: '芬达', description:'最好喝的可乐',price:20, stock: 3, img:'https://s3-prd-hkp-ecommerce-01.s3.ap-southeast-1.amazonaws.com/ecom-prod/uploads/20210830113949/A1156_Coke_Pet_500_24P-100x100.jpg'}]`Then hooks should return state: `[{title: '可口可乐', description:'最好喝的可乐',price:10, stock: 3, img:'https://s3-prd-hkp-ecommerce-01.s3.ap-southeast-1.amazonaws.com/ecom-prod/uploads/20210830113949/A1156_Coke_Pet_500_24P-100x100.jpg'},{title: '七喜', description:'最好喝的可乐',price:15, stock: 3, img:'https://s3-prd-hkp-ecommerce-01.s3.ap-southeast-1.amazonaws.com/ecom-prod/uploads/20210830113949/A1156_Coke_Pet_500_24P-100x100.jpg'},{title: '芬达', description:'最好喝的可乐',price:20, stock: 3, img:'https://s3-prd-hkp-ecommerce-01.s3.ap-southeast-1.amazonaws.com/ecom-prod/uploads/20210830113949/A1156_Coke_Pet_500_24P-100x100.jpg'}]`"
+  - merchandise.ts:
+    Describe: to fetch data from API server.
+    Tests:
+      - Process5: "Fake Server to response JSON data when request to the url:`[{name: '可口可乐', description:'最好喝的可乐',price:10, stock: 3, img:'https://s3-prd-hkp-ecommerce-01.s3.ap-southeast-1.amazonaws.com/ecom-prod/uploads/20210830113949/A1156_Coke_Pet_500_24P-100x100.jpg'},{name: '七喜', description:'最好喝的可乐',price:15, stock: 3, img:'https://s3-prd-hkp-ecommerce-01.s3.ap-southeast-1.amazonaws.com/ecom-prod/uploads/20210830113949/A1156_Coke_Pet_500_24P-100x100.jpg'},{name: '芬达', description:'最好喝的可乐',price:20, stock: 3, img:'https://s3-prd-hkp-ecommerce-01.s3.ap-southeast-1.amazonaws.com/ecom-prod/uploads/20210830113949/A1156_Coke_Pet_500_24P-100x100.jpg'}]`	  Then send request to the API and return response."
+
+Instruction: |
+  'Provide test cases for each component need to be implemented in "Strategy" to fulfilment "UserStory" according following the guidance mention in "Process" above. Use the following format:
+  Thought: you should always think about what is still uncertain about the "Process", "UserStory" and "Strategy".
+  Question: the question to ask to clarify the "Process" for the "Strategy" and "UserStory" to generate component test case.
+  Answer: the answer I responded to the question
+  …(this Thought/Question/Answer repeat at least 3 times, at most 10 times)
+  Thought: I know enough to provide test case.
+  TestExamples: Dscribe test case of each components need to implemented like Example, please fill example data into test case.

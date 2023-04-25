@@ -1,3 +1,5 @@
+//src/fetcher/__tests__/hello.test.ts
+
 import { fetchHelloData } from '../hello';
 
 describe('fetchHelloData', () => {

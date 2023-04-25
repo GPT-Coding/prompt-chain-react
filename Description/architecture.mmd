@@ -1,0 +1,104 @@
+As a senior front-end programmer, you should split implement task for a userStory
+
+##KnowledgeBase
+
+###BusinessBackground
+This project is a web application for an e-commerce store where users can find and purchase their favorite products.
+###BusinessBackground END
+
+###TechStacks
+    - Language: TypeScript
+    - Framework: React、Recoil、Antd
+    - TestSuits: Jest、Testing-library、@swr/jest
+    - Build: Vite
+    - Lint: Eslint
+    - GitHooks: husky
+    - MockServer: msw
+###TechStacks END
+
+###Architecture
+graph TD
+  A[ReactComponent] --> |Props| F[React Props]
+  A -->|Hook State| B[Hook]
+  A -->|Hook Method| B[Hook]
+  B -->|Global State| C[Store]
+  B -->|API Data| D[Fetcher]
+  D --> |GET/POST| E[FetchRequest]
+  subgraph View
+    A
+  end
+  subgraph ViewModel
+    B
+    C
+    F
+  end
+  subgraph Service
+    D
+  end
+  subgraph Infra
+    E
+  end
+###Architecture END
+
+###Code Guidelines
+    - View layer modules generally only contain rendering logic and user practice responses, while data and domain logic are implemented in the ViewModel and Service layers.
+    - ReactComponent does not separately control state and cannot directly call modules in the Service layer, all state and method should be encapsulated in the Hook of the ViewModel.
+    - The dependency relationship is View → ViewModel → Service → Infra and cannot be cross-layer dependent.
+    - If not explicitly declare, there is generally no need for global state Store.
+    - Module in Infra is considered part of the scaffolding, so consider it already implemented for new features.
+###Code Guidelines END
+
+##KnowledgeBase END
+
+
+##EXAMPLE
+Here is module need to be implemented list for my architecture:
+moduleA:
+{{describe the job of the this module}}
+this module should fulfilment ACs below:
+{{AC1:xxx, AC2:xxx}}
+##EXAMPLE END
+
+##UserStory
+userStory:
+  Description: 作为一个用户，我可以在商品详情页（已经实现）进行下单，以便于我购买商品
+  ACs:
+    - AC1:
+        - Given 用户在商品详情页
+        - When 点击下单按钮
+        - Then 可以弹出一个订单确认的弹框，其中包含了一个可以填写的表单，包括了寄送地址、商品数量两个字段
+    - AC2:
+        - Given 用户打开订单确认的弹窗
+        - When 填写了合法的寄送地址、商品数量，点击提交。
+        - Then 提交订单，弹出 toast 提示用户订单提交成功，然后关闭弹窗
+    - AC3:
+        - Given 用户打开订单确认的弹窗
+        - When 没有填写即送地址或商品数量，点击了提交
+        - Then 表单校验不通过，在没有填写的地方报错“请填写该字段”
+    - AC4:
+        - Given 用户打开订单确认的弹窗
+        - When 填写商品数量字段
+        - Then 只能填写大于等于的整数。
+    - AC5:
+        - Given 用户打开订单确认的弹窗
+        - When 用户点击取消
+        - Then 关闭弹窗，不做其他操作。
+    - AC6:
+        - Given 用户确认下单
+        - When 服务器出错
+        - Then 弹出 toast 提示用户提交失败，然后关闭弹窗
+
+###NOTE
+商品详情组件已经实现。下单的逻辑应该封装在弹窗组件中
+###NOTE END
+##UserStory END
+
+
+
+Provide an overall "UserStory" implement strategy according following the guidance mention in "KnowledgeBase" above. Don't think tech detail, but you should give AC for each module Use the following format:
+  Thought: you should always think about what is still uncertain about the "UserStory" and "KnowledgeBase".You can start thought from "Which modules should to be implemented in my architecture?"
+  Question: the question to ask to clarify the "onBoarding" for the strategy of implement this story.
+  Answer: the answer I responded to the question
+  …(this Thought/Question/Answer  can repeat N times)
+  Thought: I know enough to provide implement strategy.
+  Strategy: Don’t generate code. Describe the solution as “##EXAMPLE”

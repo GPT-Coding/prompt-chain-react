@@ -1,3 +1,5 @@
+//src/components/__tests__/Hello.test.tsx
+
 import { render } from '../../../tests/test-utils';
 import HelloWrapper from '../Hello';
 import { useHello } from '../../hooks/useHello';

@@ -1,0 +1,103 @@
+Act: You are a senior front-end developer.
+
+onBoarding:
+  Business Background: This project is a web application for an e-commerce store where users can find and purchase their favorite products.
+
+  Tech Stacks:
+    - Language: TypeScript
+    - Framework: React、Recoil、Antd
+    - TestSuits: Jest、Testing-library、@swr/jest
+    - Build: Vite
+    - Lint: Eslint
+    - GitHooks: husky
+    - MockServer: msw
+
+  Architecture:
+    The project follows the MVVM architecture and consists of 4 layers:
+      - View:
+          - ViewComponent: This component is responsible for rendering the page and responding to user interactions. It's typically implemented as an RFC (React Function Component) and relies on Hook components or React props from the ViewModel to get model data or execute tasks.
+      - ViewModel:
+          - Hook: This component provides data to help ViewComponent render and provides methods to respond to user actions. It's typically implemented as a React hook. If it needs to get some data from the server, it depends on the Fetcher component, and if it needs to share some global state, it depends on the Store component.
+          - Store: This component provides global state throughout the entire application, which can be used by Hook components when needed (usually declared explicitly). It's typically implemented as a Recoil Atom.
+      - Service:
+          - Fetcher: This component provides data from the server API through HTTP requests. It depends on FetchRequest to send actual API requests.
+      - Infra:
+          - FetchRequest: This component encapsulates fetch from the WEB API. Its instance provides the get and post methods to send GET or POST HTTP requests and provides the abort method to abort requests. This component is considered part of the scaffolding, so consider it already implemented for new features.
+
+  Code Guidelines:
+    - View layer components generally only contain rendering logic and user practice responses, while data and domain logic are implemented in the ViewModel and Service layers.
+    - ViewComponent does not separately control state and cannot directly call components in the Service layer, but should be encapsulated in the Hook of the ViewModel.
+    - The dependency relationship is View → ViewModel → Service → Infra and cannot be cross-layer dependent.
+    - If not explicitly stated, there is generally no need for global state Store.
+
+userStory:
+  Description: 作为一个用户，我可以再商品列表页面（已经实现）选择一个商品进行下单，以便于我购买商品
+  ACs:
+    - AC1:
+        - Given 用户进入商品列表页面
+        - When 点击某个商品
+        - Then 可以弹出一个订单确认的弹框，其中包含了这个商品的详情，以及一个可以填写的表单，包括了寄送地址、商品数量两个字段
+    - AC2:
+        - Given 用户打开订单确认的弹窗
+        - When 填写了合法的寄送地址、商品数量，点击提交。
+        - Then 提交订单，弹出 toast 提示用户订单提交成功，然后关闭弹窗
+    - AC3:
+        - Given 用户打开订单确认的弹窗
+        - When 没有填写即送地址或商品树龄，点击了提交
+        - Then 表单校验不通过，在没有填写的地方报错“请填写该字段”
+    - AC4:
+        - Given 用户打开订单确认的弹窗
+        - When 填写商品数量字段
+        - Then 只能填写大于等于的整数。
+    - AC5:
+        - Given 用户打开订单确认的弹窗
+        - When 用户点击取消
+        - Then 关闭弹窗，不做其他操作。
+    - AC6:
+        - Given 用户确认下单
+        - When 服务器出错
+        - Then 弹出 toast 提示用户提交失败，然后关闭弹窗
+
+  依赖 API:
+    URL: POST /portal/api/orders
+    request body: |
+      {
+        merchandieseId: string,
+        quantity: number,
+        shipAddress: string
+      }
+    response: |
+      {
+        status: number,
+        data: {
+          orderId: string
+        }
+        errormsg: string
+      }
+  涉及模型:
+    Order:
+      {
+        id?: string,
+        merchandieseId: string,
+        quantity: number,
+        shipAddress: string,
+      }
+
+    Merchandise:
+      {
+        id: string,
+        title: string,
+        description: string,
+        price: number,
+        stock: number,
+        img: string;,
+      }
+
+Instruction: |
+  'Provide an overall "userStory" implement strategy according following the guidance mention in "onBoarding" above. Don't think tech detail, Use the following format:
+  Thought: you should always think about what is still uncertain about the "userStory" and "onBoarding".
+  Question: the question to ask to clarify the "onBoarding" for the strategy of implement this story.
+  Answer: the answer I responded to the question
+  …(this Thought/Question/Answer repeat at least 5 times, at most 10 times)
+  Thought: I know enough to provide implement strategy.
+  Strategy: Don’t generate code. Describe the solution, and breaking the solution down as a task list based on the guidance mentioned above. The task list should group by components need to be impelemented, and mark AC on each task item.

@@ -3,6 +3,7 @@
 import FetchRequest from '../infra/fetchRequest';
 
 interface Merchandise {
+  id: string;
   name: string;
   description: string;
   price: number;

@@ -1,3 +1,5 @@
+//src/components/Hello.tsx
+
 import { Suspense } from 'react';
 import { useHello } from '../hooks/useHello';
 

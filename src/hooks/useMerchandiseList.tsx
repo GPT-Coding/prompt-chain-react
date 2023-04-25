@@ -4,6 +4,7 @@ import { selector, useRecoilValue } from 'recoil';
 import { fetchMerchandiseList } from '../fetcher/merchandise';
 
 interface Merchandise {
+  id: string;
   title: string;
   description: string;
   price: number;
@@ -15,7 +16,8 @@ const merchandiseListQuery = selector({
   key: 'merchandiseListQuery',
   get: async () => {
     const data = await fetchMerchandiseList();
-    return data.map(({ name, description, price, stock, img }) => ({
+    return data.map(({ id, name, description, price, stock, img }) => ({
+      id: id,
       title: name,
       description,
       price,
